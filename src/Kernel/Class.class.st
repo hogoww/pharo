@@ -1258,6 +1258,29 @@ Class >> variableByteSubclass: t instanceVariableNames: f classVariableNames: d 
 				environment: self environment ]
 ]
 
+{ #category : #'subclass creation - variableDoubleWord' }
+Class >> variableDoubleWordSubclass: t instanceVariableNames: f classVariableNames: d package: cat [
+	"This is the standard initialization message for creating a new class as a subclass of an existing class (the receiver) in which the subclass is to have indexable word-sized nonpointer variables."
+	^ self variableDoubleWordSubclass: t instanceVariableNames: f classVariableNames: d poolDictionaries: '' package: cat
+]
+
+{ #category : #'subclass creation - variableDoubleWord' }
+Class >> variableDoubleWordSubclass: t instanceVariableNames: f classVariableNames: d poolDictionaries: s package: cat [
+	"This is the standard initialization message for creating a new class as a subclass of an existing class (the receiver) in which the subclass is to have indexable word-sized nonpointer variables."
+
+	^ self classInstaller
+		make: [ :builder | 
+			builder
+				superclass: self;
+				name: t;
+				layoutClass: DoubleWordLayout;
+				slots: f asSlotCollection;
+				sharedVariablesFromString: d;
+				sharedPools: s;
+				category: cat;
+				environment: self environment ]
+]
+
 { #category : #'subclass creation - deprecated' }
 Class >> variableSubclass: className instanceVariableNames: instVarNameList classVariableNames: classVarNames category: cat [
 	"Added to allow for a simplified subclass creation experience. "

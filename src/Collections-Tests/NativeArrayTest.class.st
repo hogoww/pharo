@@ -92,6 +92,14 @@ NativeArrayTest >> testAtPutExactSizeNumber [
 ]
 
 { #category : #tests }
+NativeArrayTest >> testAtPutWorksForDoubleWordArray [
+	| doubleWordArray |
+	doubleWordArray := { 1 << 32 } as: DoubleWordArray.
+	self assert: doubleWordArray first equals: 1 << 32.
+	self assert: doubleWordArray class classLayout class equals: DoubleWordLayout
+]
+
+{ #category : #tests }
 NativeArrayTest >> testReplaceFromToWithStartingAt [
 	"Makes sure the primitive works correctly with different data structures"
 	self guineaPigHerd do: [ :guineaPig |
